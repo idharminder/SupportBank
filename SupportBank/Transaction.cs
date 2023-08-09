@@ -17,7 +17,4 @@ namespace SupportBank
             Amount = amount;
         }
     }
-
-
-
 }

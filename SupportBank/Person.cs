@@ -1,9 +1,11 @@
 namespace SupportBank
 {
-    public class Person {
+    public class Person
+    {
         public string Name { get; set; }
 
-        public Person(string name) {
+        public Person(string name)
+        {
             Name = name;
         }
     }
