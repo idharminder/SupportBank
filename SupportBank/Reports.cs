@@ -12,5 +12,13 @@ namespace SupportBank
             }
             Console.WriteLine($"===================\n");
         }
+
+        public static void CustomerReport(Ledger ledger, string accountName)
+        {
+            ledger.Transactions
+            .Where(t => t.From.Name == accountName || t.To.Name == accountName)
+            .ToList()
+            .ForEach(t => Console.WriteLine($"{t.Date:d}\t{t.From.Name,-10}\t{t.To.Name,-10}\t{t.Narrative,-25}\t{t.Amount:C}"));
+        }
     }
 }

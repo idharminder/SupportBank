@@ -24,13 +24,23 @@ while (loop)
          Reports.AllReport(myBank);
          break;
       case Option.CustomerReport:
-         Console.WriteLine("add customer report logic");
+         bool validCustomer = false;
+         string accountName;
+         do
+         {
+            Console.WriteLine("Enter Account Name:");
+            accountName = Console.ReadLine();
+            validCustomer = myBank.Accounts.ContainsKey(accountName);
+         } while (!validCustomer);
+         Reports.CustomerReport(myLedger, accountName);
          break;
       case Option.Exit:
          loop = false;
          break;
    }
 }
+
+
 
 
 
