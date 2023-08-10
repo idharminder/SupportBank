@@ -1,6 +1,17 @@
-﻿using SupportBank;
+﻿
+using SupportBank;
+using NLog;
+using NLog.Config;
+using NLog.Targets;
 
-string filePath = @".\Transactions2014.csv";
+var config = new LoggingConfiguration();
+var target = new FileTarget { FileName = @"C:\Users\ArdKur\Training\SupportBank\SupportBank\SupportBank.log", Layout = @"${longdate} ${level} - ${logger}: ${message}" };
+config.AddTarget("File Logger", target);
+config.LoggingRules.Add(new LoggingRule("*", LogLevel.Debug, target));
+LogManager.Configuration = config;
+
+// string filePath = @".\Transactions2014.csv";
+string filePath = @".\DodgyTransactions2015.csv";
 
 FileReader myFileReader = new(filePath);
 Ledger myLedger = new();
@@ -15,7 +26,7 @@ while (loop)
 {
    do
    {
-      Console.WriteLine("Enter something");
+      Console.WriteLine("Welcome to Support Bank! Choose From Following Options \n0) Exit\n1) All Reports\n2) Customer Report\n");
    } while (!Enum.TryParse(Console.ReadLine(), out option));
 
    switch (option)
@@ -24,21 +35,23 @@ while (loop)
          Reports.AllReport(myBank);
          break;
       case Option.CustomerReport:
-         bool validCustomer = false;
-         string accountName;
-         do
-         {
-            Console.WriteLine("Enter Account Name:");
-            accountName = Console.ReadLine();
-            validCustomer = myBank.Accounts.ContainsKey(accountName);
-         } while (!validCustomer);
-         Reports.CustomerReport(myLedger, accountName);
+
+         Reports.CustomerReport(myLedger, myBank);
          break;
       case Option.Exit:
          loop = false;
          break;
    }
 }
+
+
+
+
+
+
+
+
+
 
 
 

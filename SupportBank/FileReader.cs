@@ -1,7 +1,10 @@
+using NLog;
+
 namespace SupportBank
 {
     public class FileReader
     {
+        private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
         public string Path { get; set; }
         public FileReader(string path)
         {
@@ -24,7 +27,9 @@ namespace SupportBank
             }
             else
             {
+                Logger.Error($"File {Path} does not exist!");
                 throw new Exception($"\n\nFile {Path} does not exist\n\n");
+
             }
             return values;
         }
