@@ -5,19 +5,24 @@ using NLog.Config;
 using NLog.Targets;
 
 var config = new LoggingConfiguration();
-var target = new FileTarget { FileName = @"C:\Users\ArdKur\Training\SupportBank\SupportBank\SupportBank.log", Layout = @"${longdate} ${level} - ${logger}: ${message}" };
+var target = new FileTarget { FileName = @"C:\Work\Logs\SupportBank.log", Layout = @"${longdate} ${level} - ${logger}: ${message}" };
 config.AddTarget("File Logger", target);
 config.LoggingRules.Add(new LoggingRule("*", LogLevel.Debug, target));
 LogManager.Configuration = config;
 
-// string filePath = @".\Transactions2014.csv";
-string filePath = @".\DodgyTransactions2015.csv";
+//string filePath = @".\Transactions2014.csv";
+// string filePath = @".\DodgyTransactions2015.csv";
+string filePath = @".\Transactions2013.json";
 
 FileReader myFileReader = new(filePath);
 Ledger myLedger = new();
 Bank myBank = new();
 
-myLedger.LoadTransctions(myFileReader.ReadFile());
+// myLedger.CSVLoadTransactions(myFileReader.CSVReadFile());
+
+
+myLedger.JSONLoadTransactions(myFileReader.JSONReadFile());
+
 myBank.ProcessLedger(myLedger);
 
 bool loop = true;
@@ -43,17 +48,3 @@ while (loop)
          break;
    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -11,7 +11,7 @@ namespace SupportBank
             Path = path;
         }
 
-        public List<string> ReadFile()
+        public List<string> CSVReadFile()
         {
             var values = new List<string>();
 
@@ -33,5 +33,24 @@ namespace SupportBank
             }
             return values;
         }
+
+        public string JSONReadFile()
+        {
+            string readText="";
+
+            if (File.Exists(Path))
+            {
+                readText = File.ReadAllText(Path);
+            }
+            else
+            {
+                Logger.Error($"File {Path} does not exist!");
+                throw new Exception($"\n\nFile {Path} does not exist\n\n");
+
+            }
+            return readText;
+        }
+
+
     }
 }

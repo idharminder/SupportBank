@@ -1,6 +1,6 @@
+using Newtonsoft.Json;
 using NLog;
-using NLog.Config;
-using NLog.Targets;
+
 
 namespace SupportBank
 {
@@ -20,7 +20,7 @@ namespace SupportBank
             Transactions.Add(transaction);
         }
 
-        public void LoadTransctions(List<string> transactions)
+        public void CSVLoadTransactions(List<string> transactions)
         {
 
             foreach (var item in transactions)
@@ -44,6 +44,24 @@ namespace SupportBank
                         Logger.Error($"[Ledger Error] \n [{item}] \n {e.Message} ");
                     }
                 }
+            }
+        }
+
+
+        public void JSONLoadTransactions(string jtransactions)
+        {
+            var convertedJTransactions = JsonConvert.DeserializeObject<List<JTransaction>>(jtransactions);
+
+            foreach (var jtransaction in convertedJTransactions)
+            {
+                var transaction = new Transaction(
+                         jtransaction.Date,
+                          new Person(jtransaction.FromAccount),
+                           new Person(jtransaction.ToAccount),
+                           jtransaction.Narrative,
+                           jtransaction.Amount
+                          );
+                AddTransaction(transaction);
             }
         }
     }

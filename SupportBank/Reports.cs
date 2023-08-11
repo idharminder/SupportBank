@@ -21,7 +21,7 @@ namespace SupportBank
         public static void CustomerReport(Ledger ledger, Bank bank)
         {
             bool validCustomer = false;
-            string accountName;
+            string? accountName;
             do
             {
                 Console.WriteLine("Enter Account Name:");
@@ -30,12 +30,10 @@ namespace SupportBank
             } while (!validCustomer);
 
             ledger.Transactions
-            .Where(t => t.From.Name == accountName || t.To.Name == accountName)
+            .Where(t => t.FromAccount.Name == accountName || t.ToAccount.Name == accountName)
             .ToList()
-            .ForEach(t => Console.WriteLine($"{t.Date:d}\t{t.From.Name,-10}\t{t.To.Name,-10}\t{t.Narrative,-25}\t{t.Amount:C}"));
+            .ForEach(t => Console.WriteLine($"{t.Date:d}\t{t.FromAccount.Name,-10}\t{t.ToAccount.Name,-10}\t{t.Narrative,-25}\t{t.Amount:C}"));
             Logger.Info("Customer Report Created.");
         }
-
-
     }
 }

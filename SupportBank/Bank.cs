@@ -20,26 +20,26 @@ namespace SupportBank
             foreach (var item in ledger.Transactions)
             {
                 //Asset "to"
-                if (!Accounts.ContainsKey(item.To.Name))
+                if (!Accounts.ContainsKey(item.ToAccount.Name))
                 {
-                    AddAccount(item.To.Name);
-                    Accounts[item.To.Name].Assets += item.Amount;
+                    AddAccount(item.ToAccount.Name);
+                    Accounts[item.ToAccount.Name].Assets += item.Amount;
                 }
                 else
                 {
-                    Accounts[item.To.Name].Assets += item.Amount;
+                    Accounts[item.ToAccount.Name].Assets += item.Amount;
                 }
 
                 //Liabilities "from"
 
-                if (!Accounts.ContainsKey(item.From.Name))
+                if (!Accounts.ContainsKey(item.FromAccount.Name))
                 {
-                    AddAccount(item.From.Name);
-                    Accounts[item.From.Name].Liablities += item.Amount;
+                    AddAccount(item.FromAccount.Name);
+                    Accounts[item.FromAccount.Name].Liablities += item.Amount;
                 }
                 else
                 {
-                    Accounts[item.From.Name].Liablities += item.Amount;
+                    Accounts[item.FromAccount.Name].Liablities += item.Amount;
                 }
             }
 
