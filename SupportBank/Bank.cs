@@ -1,7 +1,10 @@
+using NLog;
+
 namespace SupportBank
 {
     public class Bank
     {
+        private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
         public Dictionary<string, Account> Accounts { get; set; }
 
         public Bank()
@@ -16,7 +19,6 @@ namespace SupportBank
 
         public void ProcessLedger(Ledger ledger)
         {
-
             foreach (var item in ledger.Transactions)
             {
                 //Asset "to"
@@ -42,14 +44,8 @@ namespace SupportBank
                     Accounts[item.FromAccount.Name].Liablities += item.Amount;
                 }
             }
-
+            Logger.Info($"Processed Ledger {ledger.Transactions.Count} transactions 0processed");
+            Console.WriteLine($"Processed Ledger {ledger.Transactions.Count} transactions processed");
         }
-
-
-
-
-
-
-
     }
 }

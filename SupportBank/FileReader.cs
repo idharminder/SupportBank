@@ -28,15 +28,15 @@ namespace SupportBank
             else
             {
                 Logger.Error($"File {Path} does not exist!");
+                Console.WriteLine($"Error trying to access transaction file.");
                 throw new Exception($"\n\nFile {Path} does not exist\n\n");
-
             }
             return values;
         }
 
         public string JSONReadFile()
         {
-            string readText="";
+            string readText = "";
 
             if (File.Exists(Path))
             {
@@ -45,6 +45,7 @@ namespace SupportBank
             else
             {
                 Logger.Error($"File {Path} does not exist!");
+                Console.WriteLine($"Error trying to access transaction file.");
                 throw new Exception($"\n\nFile {Path} does not exist\n\n");
 
             }

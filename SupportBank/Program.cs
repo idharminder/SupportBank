@@ -4,8 +4,12 @@ using NLog;
 using NLog.Config;
 using NLog.Targets;
 
+
+string path = System.IO.Directory.GetCurrentDirectory();
+Console.WriteLine(@$"{path}\SupportBank.log");
+
 var config = new LoggingConfiguration();
-var target = new FileTarget { FileName = @"C:\Work\Logs\SupportBank.log", Layout = @"${longdate} ${level} - ${logger}: ${message}" };
+var target = new FileTarget { FileName = @$"{path}\SupportBank.log", Layout = @"${longdate} ${level} - ${logger}: ${message}" };
 config.AddTarget("File Logger", target);
 config.LoggingRules.Add(new LoggingRule("*", LogLevel.Debug, target));
 LogManager.Configuration = config;
@@ -17,8 +21,6 @@ string filePath = @".\Transactions2013.json";
 FileReader myFileReader = new(filePath);
 Ledger myLedger = new();
 Bank myBank = new();
-
-// myLedger.CSVLoadTransactions(myFileReader.CSVReadFile());
 
 
 myLedger.JSONLoadTransactions(myFileReader.JSONReadFile());
